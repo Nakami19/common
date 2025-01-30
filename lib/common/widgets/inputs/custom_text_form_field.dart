@@ -18,6 +18,7 @@ class CustomTextFormField extends StatefulWidget {
       this.validator,
       this.errorMessage,
       this.obscureText = false,
+      this.borderColor = primaryColor,
       this.maxLength,
       this.readOnly,
       this.showCursor,
@@ -58,6 +59,7 @@ class CustomTextFormField extends StatefulWidget {
   final ValueChanged<String>? onValue;
   final Function()? onTap;
   final Function()? onIconButton;
+  final Color borderColor;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -131,8 +133,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           // Bordes según el estado del campo.
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadiusValue),
-            borderSide: const BorderSide(
-              color: primaryColor,
+            borderSide:  BorderSide(
+              color: widget.borderColor,
               width: 2,
             ),
           ),
@@ -147,8 +149,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadiusValue),
-            borderSide: const BorderSide(
-              color: primaryColor,
+            borderSide: BorderSide(
+              color: widget.borderColor,
               width: 2,
             ),
           ),

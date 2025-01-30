@@ -9,8 +9,8 @@ class CustomDropdown<T> extends StatefulWidget {
       {required this.options,
       required this.onChanged,
       this.autoSelectFirst = false,
-       this.showError,
-       this.errorText,
+      this.showError,
+      this.errorText,
       this.title,
       this.titleTextStyle,
       this.hintText,
@@ -22,6 +22,7 @@ class CustomDropdown<T> extends StatefulWidget {
       this.titleAlignment,
       this.height,
       this.label,
+      this.menuMaxheight,
       super.key});
 
   final ValueChanged<String?> onChanged;
@@ -37,8 +38,8 @@ class CustomDropdown<T> extends StatefulWidget {
   final TextStyle? hintTextStyle;
   final TextStyle? titleTextStyle;
   final AlignmentGeometry? titleAlignment;
+  final double? menuMaxheight;
   final double? height;
-
 
   //Funciones que toman un objeto option y devuelve un String, permiten que el widget sea reutilizable
   final String Function(dynamic option) itemValueMapper;
@@ -51,31 +52,43 @@ class CustomDropdown<T> extends StatefulWidget {
 class _CustomDropdownState extends State<CustomDropdown> {
   // Variable para almacenar el valor seleccionado actualmente.
   String? value;
+  String? errorText;
 
   @override
   void initState() {
     super.initState();
 
-     if (widget.selectedValue != null) {
+    if (widget.selectedValue != null) {
       value = widget.selectedValue; // Si se pasa un valor seleccionado
     } else if (widget.autoSelectFirst && widget.options.isNotEmpty) {
-      value = widget.itemValueMapper(widget.options.first); // Selecciona la primera opción automáticamente.
+      value = widget.itemValueMapper(widget
+          .options.first); // Selecciona la primera opción automáticamente.
     } else {
       value = null; // No seleccionar nada (placeholder activo)
     }
+
+    errorText = widget.errorText;
   }
 
-    @override
-  void didUpdateWidget(covariant CustomDropdown oldWidget) {
-    super.didUpdateWidget(oldWidget);
+@override
+void didUpdateWidget(covariant CustomDropdown oldWidget) {
+  super.didUpdateWidget(oldWidget);
 
-    // Si el valor seleccionado ha cambiado, actualiza el estado.
-    if (widget.selectedValue != oldWidget.selectedValue && widget.selectedValue != value) {
-      setState(() {
-        value = widget.selectedValue;
-      });
-    }
+  // Si el error cambia, se actualiza el estado del widget
+  if (widget.errorText != oldWidget.errorText) {
+    setState(() {
+      errorText = widget.errorText; // Actualizamos el error solo cuando cambia
+    });
   }
+
+  // Si el valor seleccionado ha cambiado, actualiza el estado.
+  if (widget.selectedValue != oldWidget.selectedValue &&
+      widget.selectedValue != value) {
+    setState(() {
+      value = widget.selectedValue;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -83,15 +96,14 @@ class _CustomDropdownState extends State<CustomDropdown> {
 
     return Column(
       children: [
-
         //Si hay un titulo se muestra sobre el dropdown
-        if(widget.title!=null)
+        if (widget.title != null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Align(
               alignment: widget.titleAlignment ?? Alignment.centerLeft,
               child: Text(
-                widget.title??"",
+                widget.title ?? "",
                 style: GoogleFonts.lato(
                   fontSize: 14,
                   color: Colors.black,
@@ -117,32 +129,35 @@ class _CustomDropdownState extends State<CustomDropdown> {
               child: DropdownButton2(
                 isExpanded: true, //se ocupa todo el ancho
                 hint: Text(
-                    widget.hintText??"",
-                    style: widget.hintTextStyle?? textStyle.bodyLarge!.copyWith(color: hintTextColor),
-                  ),
+                  widget.hintText ?? "",
+                  style: widget.hintTextStyle ??
+                      textStyle.bodyLarge!.copyWith(color: hintTextColor),
+                ),
 
                 value: value, //valor seleccionado
 
                 //opciones del dropdown
                 items: widget.options.map((option) {
                   return DropdownMenuItem<String>(
-                      value: widget.itemValueMapper(option), //valor del elemento
+                      value:
+                          widget.itemValueMapper(option), //valor del elemento
                       child: Text(
                         widget.itemLabelMapper(option), //texto que se muestra
 
                         // Aplica estilo adicional si es el elemento seleccionado.
-                        style: widget.optionsTextsStyle != null? widget.optionsTextsStyle!.copyWith(
-                          fontWeight: value == widget.itemValueMapper(option)
-                              ? FontWeight
-                                  .w600 
-                              : FontWeight.normal,
-                        ) :
-                        TextStyle(
-                          fontWeight: value == widget.itemValueMapper(option)
-                              ? FontWeight
-                                  .w600 
-                              : FontWeight.normal,
-                        ),
+                        style: widget.optionsTextsStyle != null
+                            ? widget.optionsTextsStyle!.copyWith(
+                                fontWeight:
+                                    value == widget.itemValueMapper(option)
+                                        ? FontWeight.w600
+                                        : FontWeight.normal,
+                              )
+                            : TextStyle(
+                                fontWeight:
+                                    value == widget.itemValueMapper(option)
+                                        ? FontWeight.w600
+                                        : FontWeight.normal,
+                              ),
                       ));
                 }).toList(),
 
@@ -153,21 +168,37 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       value = newValue;
                     });
                     //notifica el cambio
-                    widget.onChanged(newValue); 
+                    widget.onChanged(newValue);
                   }
                 },
 
                 //Configuracion del dropdown al abrise
                 dropdownStyleData: DropdownStyleData(
-                    maxHeight: MediaQuery.of(context).size.height / 3,
+                    maxHeight: widget.menuMaxheight ??
+                        MediaQuery.of(context).size.height / 3,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                        color: Colors.white,
                         borderRadius:
                             BorderRadius.circular(borderRadiusValue))),
               ),
             ),
           ),
         ),
+        //Texto de error abajo del dropdown
+        if (errorText != null && errorText!.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 5, left: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                errorText!,
+                style: textStyle.bodySmall!.copyWith(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
       ],
     );
   }

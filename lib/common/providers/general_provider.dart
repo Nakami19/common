@@ -84,6 +84,16 @@ class GeneralProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //Funcion para colocar primera letra en mayuscula
+  String capitalize(String str) {
+    return str
+        .split(' ')
+        .map((str) => str.isEmpty
+            ? ''
+            : '${str[0].toUpperCase()}${str.substring(1).toLowerCase()}')
+        .join(' ');
+  }
+
   //identificar si se esta cargando algo
   bool isLoading = false;
   void setLoadingStatus(bool val) {

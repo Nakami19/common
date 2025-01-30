@@ -12,9 +12,11 @@ class TextCard extends StatelessWidget {
     this.textsStyle,
     this.statusTextStyle,
     required this.texts,
+    this.onPressedButton,
   });
 
   final VoidCallback? onTap;
+  final VoidCallback? onPressedButton;
   final double? height;
   final double? width;
   final List<Map<String, dynamic>> texts;
@@ -106,6 +108,7 @@ class TextCard extends StatelessWidget {
                 ),
               ),
 
+              SizedBox(width: 10,),
               // Botón e icono
 
               Column(
@@ -114,12 +117,13 @@ class TextCard extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.info_outline,
-                    color: primaryColor,
+                    color: Color(0xFF4F4094),
                     size: 25,
                   ),
 
 
                   const Spacer(),
+                  SizedBox(height: 10,),
 
                   //si se tiene un estatus se muestra
                   if (status != null && status != "")
@@ -139,7 +143,7 @@ class TextCard extends StatelessWidget {
                             .transparent), 
                         elevation: MaterialStateProperty.all(0),
                       ),
-                      onPressed: () {},
+                      onPressed: onPressedButton ?? (){},
                       //Nombre del estatus
                       child: SizedBox(
                         width: 90,

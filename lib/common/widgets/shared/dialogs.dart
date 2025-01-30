@@ -56,7 +56,7 @@ class Dialogs {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
 
                           child: CustomButton(
                               title: cancelButtonText ?? 'CANCELAR',
@@ -87,7 +87,7 @@ class Dialogs {
 
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
 
                           child: CustomButton(
                               title: confirmButtonText ?? 'CONFIRMAR',
@@ -99,7 +99,7 @@ class Dialogs {
                               onTap: actionSuccess,
                               styleText: GoogleFonts.lato(
                                 color: Colors.white,
-                                fontSize: 10,
+                                fontSize: 9,
                                 fontWeight: FontWeight.bold
                               ),
                               provider: GeneralProvider()),
@@ -184,6 +184,7 @@ class Dialogs {
 
     showModalBottomSheet<void>(
       isDismissible: allowClose, //dice si es posible clickear afuera del menu
+      
       backgroundColor:
           themeProvider.isDarkModeEnabled ? darkColor : primaryScaffoldColor,
       elevation: 10,
@@ -194,117 +195,77 @@ class Dialogs {
       context: context,
       isScrollControlled: true,
       builder: (BuildContext _) {
-        //* Wrap del contenido (header y body del shoMenubottomSheet)
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Wrap(children: [
-              Container(
-
-                  decoration: const BoxDecoration(
-
-                    //* bordes top radius
-                    borderRadius: BorderRadius.only(
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      return SingleChildScrollView(
+        child: Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.9, // Ajuste dinámico, en caso de que necesite moverse por aparicion de teclado
+          ),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Encabezado
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: color ?? primaryColor,
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(borderRadiusValue),
                       topRight: Radius.circular(borderRadiusValue),
                     ),
                   ),
-
-                  //* Aqui meto el header y el body
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // min
-
-                    children: [
-                      //* Row para titulo de menu desplegable
-                      Row(
-                          mainAxisSize: MainAxisSize.min, //max
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //* icono y titulo de la parte superior
-                            Container(
-
-                              width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.all(0), // puede ser 0
-                              decoration: BoxDecoration(
-                                color: color ?? primaryColor,
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(borderRadiusValue),
-                                  topRight: Radius.circular(borderRadiusValue),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.keyboard_arrow_down_sharp,
+                            color: Colors.white,
+                          ),
+                          if (headerTitle != null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (iconTitle != null) ...[
+                                  Icon(iconTitle, color: Colors.white),
+                                  const SizedBox(width: 7),
+                                ],
+                                Text(
+                                  headerTitle,
+                                  style: textStyle.titleMedium!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-
-                              child: Center(
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 0, vertical: 5),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max, //min
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-
-                                        //* icono
-                                        GestureDetector(
-                                          child: const Icon(
-                                            Icons.keyboard_arrow_down_sharp,
-                                            color: Colors.white,
-                                          ),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                        
-                                        //* titulo, se muestra si se asigna
-                                        if (headerTitle != null)
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              // Icono del title
-                                              if (iconTitle != null) ...[
-                                                Icon(
-                                                  iconTitle,
-                                                  color: Colors.white,
-                                                  weight: 1,
-                                                ),
-                                                const SizedBox(width: 7),
-                                              ],
-
-                                              // Titulo
-                                              Text(
-                                                headerTitle,
-                                                style: textStyle.titleMedium!
-                                                    .copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                      ],
-                                    )),
-                              ),
+                              ],
                             ),
-                          ]),
-
-                      //* contenido de widgets
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12.0, horizontal: 0),
-                        child: contentBody,
-                      )
-                    ],
-                  )),
-            ]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Contenido del modal
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+                child: contentBody,
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      );
+    },
+  );
+},
+
     );
   }
 

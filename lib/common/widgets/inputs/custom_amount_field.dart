@@ -17,10 +17,12 @@ class CustomAmountField extends StatefulWidget {
       this.showMaxFundsButton = false,
       this.onChanged,
       this.onMaxFunds,
+      this.label,
       this.errorMessage,
       required this.amountcontroller,
       this.paddingV = 5,
       this.paddingH = 5,
+      this.borderColor = primaryColor,
       this.validator,
       this.node,
       super.key});
@@ -28,7 +30,7 @@ class CustomAmountField extends StatefulWidget {
   final TextEditingController amountcontroller;
   final String? errorMessage;
   final FocusNode? node;
-
+  final String? label;
   final String hintText;
   final TextStyle? hintStyle;
   final TextStyle? suffixTextStyle;
@@ -44,6 +46,7 @@ class CustomAmountField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onMaxFunds;
   final String? Function(String?)? validator;
+  final Color borderColor;
 
   @override
   State<CustomAmountField> createState() => _CustomAmountFieldState();
@@ -121,12 +124,18 @@ class _CustomAmountFieldState extends State<CustomAmountField> {
 
                     errorText: widget.errorMessage,
                     focusColor: colors.primary,
+                    label: widget.label != null
+              ? Text(
+                  widget.label!,
+                  maxLines: 1,
+                )
+              : null,
 
                     // Bordes según el estado del campo.
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(borderRadiusValue),
-                      borderSide: const BorderSide(
-                        color: primaryColor,
+                      borderSide: BorderSide(
+                        color: widget.borderColor,
                         width: 2,
                       ),
                     ),
@@ -141,8 +150,8 @@ class _CustomAmountFieldState extends State<CustomAmountField> {
 
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(borderRadiusValue),
-                      borderSide: const BorderSide(
-                        color: primaryColor,
+                      borderSide: BorderSide(
+                        color: widget.borderColor,
                         width: 2,
                       ),
                     ),

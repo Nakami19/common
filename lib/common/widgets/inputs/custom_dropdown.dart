@@ -23,6 +23,7 @@ class CustomDropdown<T> extends StatefulWidget {
       this.height,
       this.label,
       this.menuMaxheight,
+      this.returnLabelAsValue = false,
       super.key});
 
   final ValueChanged<String?> onChanged;
@@ -40,6 +41,8 @@ class CustomDropdown<T> extends StatefulWidget {
   final AlignmentGeometry? titleAlignment;
   final double? menuMaxheight;
   final double? height;
+  final bool returnLabelAsValue;
+
 
   //Funciones que toman un objeto option y devuelve un String, permiten que el widget sea reutilizable
   final String Function(dynamic option) itemValueMapper;
@@ -163,12 +166,19 @@ void didUpdateWidget(covariant CustomDropdown oldWidget) {
 
                 onChanged: (String? newValue) {
                   if (newValue != null && newValue != value) {
-                    //cambia el valor de manera local
                     setState(() {
                       value = newValue;
                     });
-                    //notifica el cambio
-                    widget.onChanged(newValue);
+                    // Aquí se envía el label o el value según la opción elegida
+                    String? selectedOptionLabel = widget.options
+                        .where((option) =>
+                            widget.itemValueMapper(option) == newValue)
+                        .map((option) => widget.itemLabelMapper(option))
+                        .firstOrNull;
+
+                    widget.onChanged(widget.returnLabelAsValue
+                        ? selectedOptionLabel
+                        : newValue);
                   }
                 },
 

@@ -515,7 +515,6 @@ class _InfoChinchinState extends State<InfoChinchin> {
                 CustomButton(
                     title: 'Reiniciar autenticación',
                     isPrimaryColor: true,
-                    isOutline: false,
                     onTap: () async {
                       // Borro todos la biometria del device
                       normalStorage.removeKey('enabledBiometric');

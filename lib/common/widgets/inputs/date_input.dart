@@ -1,14 +1,11 @@
-import '/common/assets/theme/app_colors.dart';
-import '/common/config/config_index.dart';
-import '/common/providers/theme_provider.dart';
-import '/common/widgets/widget_index.dart';
+import '../../common_index.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 //input para seleccionar fecha de un calendario
 class DateInput extends StatelessWidget {
   final TextEditingController controller;
-  final bool rangeDate;
+  final bool isRangeDate;
   final String? label;
   final String? hintText;
   final Function()? onDateChanged;
@@ -16,7 +13,7 @@ class DateInput extends StatelessWidget {
   const DateInput(
       {super.key,
       required this.controller,
-      required this.rangeDate,
+      required this.isRangeDate,
       this.label,
       this.onDateChanged,
       this.hintText});
@@ -48,7 +45,7 @@ class DateInput extends StatelessWidget {
   showCalendars(BuildContext context) {
     final themeProvider = context.read<ThemeProvider>();
     //Si no se necesita escoger un rango de fechas
-    if (!rangeDate) {
+    if (!isRangeDate) {
       showDatePicker(
           context: context,
           locale: const Locale('es'),

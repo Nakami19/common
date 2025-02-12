@@ -6,16 +6,16 @@ class LoadingButtonText extends StatelessWidget {
   final GeneralProvider provider;
   final String text;
   final TextStyle? styleText;
-  final IconData? icon;
-  final Color? iconColor; 
+  final Icon? leftIcon;
+  final Icon? rightIcon;
 
   const LoadingButtonText({
     super.key,
     required this.text,
     required this.provider,
     this.styleText,
-    this.icon,
-    this.iconColor,
+    this.leftIcon,
+    this.rightIcon
   });
 
   @override
@@ -47,12 +47,8 @@ class LoadingButtonText extends StatelessWidget {
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (icon != null) ...[
-                Icon(
-                  icon,
-                  color: iconColor ?? Colors.white,
-                  size: 20,
-                ),
+              if (leftIcon != null) ...[
+                leftIcon!,
                 const SizedBox(width: 15), 
               ],
               Flexible(
@@ -64,6 +60,10 @@ class LoadingButtonText extends StatelessWidget {
                   overflow: TextOverflow.visible
                 ),
               ),
+              if (rightIcon != null) ...[
+                rightIcon!,
+                const SizedBox(width: 15), 
+              ],
             ],
           );
   }

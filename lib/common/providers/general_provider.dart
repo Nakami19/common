@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peaje_app/common/infrastructure/clases/error_type.dart';
-
 
 class GeneralProvider extends ChangeNotifier {
-  List<Map<String, ErrorType>> errors = [];
 
   bool enabledBiometric = false;
 

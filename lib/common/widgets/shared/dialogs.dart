@@ -43,7 +43,6 @@ class Dialogs {
                   CustomButton(
                       title: confirmButtonText ?? 'ACEPTAR',
                       isPrimaryColor: true,
-                      isOutline: false,
                       onTap: actionSuccess,
                       height: 50,
                       provider:provider ?? GeneralProvider())
@@ -61,8 +60,7 @@ class Dialogs {
                           child: CustomButton(
                               title: cancelButtonText ?? 'CANCELAR',
                               isPrimaryColor: false,
-                              isOutline: false,
-                              isText: true,
+                              buttonType: ButtonType.text,
                               width: 90,
                               height: 50,
                               paddingH: 0,
@@ -92,7 +90,6 @@ class Dialogs {
                           child: CustomButton(
                               title: confirmButtonText ?? 'CONFIRMAR',
                               isPrimaryColor: true,
-                              isOutline: false,
                               width: 90,
                               paddingH: 0,
                               height: 50,

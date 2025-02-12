@@ -22,7 +22,7 @@ class InfoChinchinPopup extends StatelessWidget {
           ? primaryScaffoldColor
           : const Color(0xFF35445F),
       iconSize: 20,
-      onPressed: () => Dialogs.showMenuBottomSheet(context,
+      onPressed: () => showMenuBottomSheet(context,
           contentBody: InfoChinchin(showVersion: true)),
       icon: const Icon(
         Icons.info_outline,

@@ -7,11 +7,13 @@ enum Connection {
   production,
 }
 
-//version de la app y build
+//version de la app, build y rutas a Assets de common
 class Constants{
   static String? appVersion;
   static String? buildNumber;
   static String imagesChinchin = 'lib/common/assets/images/chinchin';
+  static String banksLogo = 'lib/common/assets/images/logos/banks_logo';
+  static String socialMedia = 'lib/common/assets/images/logos/social_media';
 }
 
 //tipo de documento de identidad
@@ -23,7 +25,4 @@ List<String> typeDocuments = [
   'P',
   'Cancelar', // Cancelar
 ];
-
-//Formato para numeros de telefono
-final phoneRegex = RegExp(r'^(0424|0414|0412|0426|0416|424|414|412|426|416)[0-9]{7}$');
 

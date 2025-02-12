@@ -1,6 +1,5 @@
 export 'app_banner_version.dart';
 export 'custom_skeleton.dart';
-export 'dialogs.dart';
 export 'error_box.dart';
 export 'filter_container.dart';
 export 'info_chinchin.dart';

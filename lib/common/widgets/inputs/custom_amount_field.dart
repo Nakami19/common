@@ -1,6 +1,6 @@
 import '/common/assets/theme/app_colors.dart';
 import '/common/assets/theme/app_theme.dart';
-import '/common/config/helpers/digit_formatter.dart';
+import '../../helpers/digit_formatter.dart';
 import 'package:flutter/material.dart';
 
 class CustomAmountField extends StatefulWidget {

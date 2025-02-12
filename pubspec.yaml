@@ -1,8 +1,8 @@
-name: peaje_app
+name: common
 description: "A new Flutter project."
 publish_to: 'none' 
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.5.3
@@ -41,4 +41,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - lib/common/assets/images/logos/social_media/
+    - lib/common/assets/images/logos/banks_logo/
+    - lib/common/assets/images/logos/services/
+    - lib/common/assets/images/chinchin/
  

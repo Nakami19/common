@@ -1,8 +1,8 @@
 name: common
-description: "A new Flutter project."
+description: "Proyecto de componentes comunes"
 publish_to: 'none' 
 
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ^3.5.3

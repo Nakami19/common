@@ -1,6 +1,6 @@
-import '/common/providers/general_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../common_index.dart';
 
 class LoadingButtonText extends StatelessWidget {
   final GeneralProvider provider;
@@ -8,11 +8,13 @@ class LoadingButtonText extends StatelessWidget {
   final TextStyle? styleText;
   final Icon? leftIcon;
   final Icon? rightIcon;
+  final ButtonType buttonType;
 
   const LoadingButtonText({
     super.key,
     required this.text,
     required this.provider,
+    required this.buttonType,
     this.styleText,
     this.leftIcon,
     this.rightIcon
@@ -54,7 +56,7 @@ class LoadingButtonText extends StatelessWidget {
               Flexible(
                 child: Text(
                   text,
-                  style: styleText ?? GoogleFonts.lato(color: Colors.white, fontSize: 18),
+                  style: styleText ?? textStyle!.copyWith(color: ButtonType.filled == buttonType? Colors.white : primaryColor, fontSize: 18),
                   softWrap: true,
                   maxLines: null,
                   overflow: TextOverflow.visible

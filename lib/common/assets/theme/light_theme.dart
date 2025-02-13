@@ -146,10 +146,6 @@ ThemeData themeDataLight(Color textColor) {
 
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: textColor,
-        textStyle: const TextStyle(
-          fontSize: 16,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadiusValue),
         ),

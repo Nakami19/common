@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="peaje_app"
+        android:label="common"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

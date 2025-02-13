@@ -9,21 +9,25 @@ class CustomButton extends StatelessWidget {
   final String title; // Texto del botón.
   final Function onTap; // Acción a ejecutar al presionar el botón.
   final GeneralProvider provider;
-  final ButtonType buttonType; //Define el tipo de boton a mostrar, por default es filled
+  final ButtonType
+      buttonType; //Define el tipo de boton a mostrar, por default es filled
   final double? paddingH; // Espaciado horizontal del botón.
   final double? paddingV; // Espaciado vertical del botón.
   final double? height; // Altura del botón.
   final double? width; // Ancho del botón.
   final double borderRadius = borderRadiusValue; // Radio de los bordes.
-  final bool isPrimaryColor; // Define si el botón usa el color primario, por default lo usa
+  final bool
+      isPrimaryColor; // Define si el botón usa el color primario, por default lo usa
 
   //Estilos opcionales para los botones
   final ButtonStyle? styleTextButton;
   final ButtonStyle? styleOutlineButton;
   final ButtonStyle? styleFilledButton;
   final TextStyle? styleText;
-  final Icon? leftIcon; // Icono opcional para mostrar en el botón en el lado izquierdo
-  final Icon? rightIcon; // Icono opcional para mostrar en el botón en el lado derecho
+  final Icon?
+      leftIcon; // Icono opcional para mostrar en el botón en el lado izquierdo
+  final Icon?
+      rightIcon; // Icono opcional para mostrar en el botón en el lado derecho
 
   const CustomButton({
     super.key,
@@ -46,6 +50,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.bodyLarge;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: paddingH ?? 5,
@@ -58,26 +63,27 @@ class CustomButton extends StatelessWidget {
         //Se verifica si el boton debe ser outline o text, por default sera filled
         child: buttonType == ButtonType.text
             ? TextButton(
-                style: styleTextButton ?? styleTextButton,
+                style: styleTextButton ??
+                    TextButton.styleFrom(
+                      foregroundColor: isPrimaryColor
+                          ? primaryColor
+                          : secondaryColor, // Color del texto
+                    ),
                 onPressed: !provider.isLoading ? () => onTap() : null,
                 child: Text(
                   title,
-                  style: styleText ?? styleText,
+                  style: styleText ?? textStyle,
                 ),
               )
             : buttonType == ButtonType.outline
                 ? OutlinedButton(
                     style: styleOutlineButton ??
                         OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(borderRadius),
-                          ),
                           side: BorderSide(
-                            color:
-                                isPrimaryColor ? primaryColor : secondaryColor,
+                            color: isPrimaryColor
+                                ? primaryColor
+                                : secondaryColor, 
                           ),
-                          foregroundColor:
-                              isPrimaryColor ? primaryColor : secondaryColor,
                         ),
                     onPressed: !provider.isLoading ? () => onTap() : null,
                     child: LoadingButtonText(
@@ -86,6 +92,7 @@ class CustomButton extends StatelessWidget {
                       styleText: styleText,
                       leftIcon: leftIcon,
                       rightIcon: rightIcon,
+                      buttonType: buttonType,
                     ),
                   )
                 : FilledButton(
@@ -104,6 +111,7 @@ class CustomButton extends StatelessWidget {
                       styleText: styleText,
                       leftIcon: leftIcon,
                       rightIcon: rightIcon,
+                      buttonType: buttonType,
                     ),
                   ),
       ),

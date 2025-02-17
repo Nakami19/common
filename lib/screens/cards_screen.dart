@@ -54,7 +54,7 @@ class _CardsScreenState extends State<CardsScreen> {
                 image: "${Constants.imagesChinchin}/chinchin_logo_favicon.svg",
                 title: 'Prueba',
                 textStyle: textStyle.bodyLarge,
-                width: 300,
+                width: 100,
                 center: false,
                 imageHeight: 30,
               ),

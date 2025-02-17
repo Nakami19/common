@@ -14,6 +14,9 @@ part 'dark_theme.dart';
 // Border radius
 const double borderRadiusValue = 30;
 
+//Tamaño del appbar
+double preferredsize = 70;
+
 class AppTheme {
   final bool isDarkModeEnabled;
 

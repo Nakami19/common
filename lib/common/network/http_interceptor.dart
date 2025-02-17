@@ -5,7 +5,7 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../app.dart';
+import '../../../app.dart';
 import '../common_index.dart';
 import '../widgets/shared/shared_index.dart';
 
@@ -22,7 +22,7 @@ class HttpInterceptor extends Interceptor {
   final List<String> cachedServices;
 
   //Duncion que se ejecuta cuando se debe cerrar la sesion
-  final Future<void> Function() onSessionExpired;
+  final void Function() onSessionExpired;
 
   HttpInterceptor({
     required this.cacheOptions,
@@ -115,7 +115,7 @@ class HttpInterceptor extends Interceptor {
     if (response.data['token'] == null &&
         response.statusCode != HttpStatus.ok) {
       //Funcion que se ejecuta para volver a vista de inicio
-      await onSessionExpired();
+       onSessionExpired();
 
       // Borra los datos del almacenamiento
       storage

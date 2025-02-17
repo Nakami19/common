@@ -61,7 +61,7 @@ class LargeCard extends StatelessWidget {
         child: Wrap(
           alignment: center? WrapAlignment.center : WrapAlignment.start, // Alineación de los elementos
           crossAxisAlignment: WrapCrossAlignment.center, // Centrar verticalmente
-          spacing: 20, // Espacio horizontal entre la imagen y el texto
+          spacing: 15, // Espacio horizontal entre la imagen y el texto
           children: [
             
             // Imagen
@@ -96,7 +96,10 @@ class LargeCard extends StatelessWidget {
               child: Text(
                 title,
                 style: textStyle,
+                textAlign: TextAlign.center,
                 softWrap: true, 
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

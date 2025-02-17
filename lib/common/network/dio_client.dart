@@ -57,6 +57,7 @@ Dio createDio({
   bool enableLogging = true,
   required String baseUrl,
   required HttpInterceptor httpInterceptor,
+  List<String> cachedServices = const [],
 }) {
   final dio = Dio(
     BaseOptions(

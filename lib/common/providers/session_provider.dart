@@ -131,6 +131,7 @@ class SessionProvider extends GeneralProvider {
     }
   }
 
+  //Mostrar dialogo en caso de no tener internet
   void showNoInternetPopup() async {
     final context = navigatorKey.currentContext;
     if (context != null) {
@@ -192,7 +193,7 @@ class SessionProvider extends GeneralProvider {
   }
 
  // Destruye la sesión del usuario
-  void destroySession({bool? haveModalAction = true, String firstScreen='/firstLoginScreen'}) {
+  void destroySession({bool? haveModalAction = true, String firstLoginScreen = '/firstlogin'}) {
     _timer?.cancel();
     _timer = null;
     _isDialogOpen = false;
@@ -213,7 +214,7 @@ class SessionProvider extends GeneralProvider {
       );
 
       navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        firstScreen,
+        firstLoginScreen,
         (route) => false,
       );
 

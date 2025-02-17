@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../common_index.dart';
 
+
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
 

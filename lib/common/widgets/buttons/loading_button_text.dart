@@ -58,8 +58,9 @@ class LoadingButtonText extends StatelessWidget {
                   text,
                   style: styleText ?? textStyle!.copyWith(color: ButtonType.filled == buttonType? Colors.white : primaryColor, fontSize: 18),
                   softWrap: true,
-                  maxLines: null,
-                  overflow: TextOverflow.visible
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis
+                
                 ),
               ),
               if (rightIcon != null) ...[

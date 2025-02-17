@@ -46,4 +46,10 @@ class DateFormatter {
   static String formatDate2(DateTime date) {
     return DateFormat('yyyy/MM/dd').format(date.toLocal());
   }
+
+   // Devuelve la fecha en formato dd/MM/yyyy sin hora
+  static String formatDate3(DateTime date) {
+    return DateFormat('dd/MM/yyyy').format(date.toLocal());
+  }
+
 }
